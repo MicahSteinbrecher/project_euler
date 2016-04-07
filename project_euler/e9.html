@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>pythag triplets</title>
+	
+	<script>
+	
+	/* 
+	* There exists exactly one Pythagorean triplet for which a + b + c = 1000
+	*return a * b * c
+	*a + b + c = 1000 and a < b < c
+	*
+	*a = 1, b = a + 1, c = 1000 - (a+b)
+	*ttd (travel distance total) = c - b
+	* if ttd is odd: itd = (c-b)/2 
+	*if ttd is even: itd = (c-b)/2 - 1
+	*increment b and decrement c itd times.
+	* for each new triple, store the 3 values as an object in a triple array
+	*incremenet a by one, recalculate b and c, and repeate the process.
+	*/
+	var a = 0;
+	var b = 0;
+	var c = 1000;
+	var td = 0;
+	var triples = [];
+
+	while ((c - a) > 2){
+		calcTriples();
+	}
+
+	var product = isPythag();
+	document.write(product);
+
+
+
+	//initialize values for the beginning of each loop
+	function initTriple(){
+		a++;
+		b = a + 1;
+		c = 1000 - (a + b);
+		var triple = {a:a,b:b,c:c};
+		triples.push(triple);
+	}
+	//calculates travel distance
+	function calcTD(b,c){
+		if ((c-b)%2 == 0){
+			return (c-b)/2 - 1;
+		}
+		else{
+			return (c-b)/2;
+		}
+	}
+
+	//calculate all vals a,b,c where 0 < a < b < c where a + b + c = 1000
+	function calcTriples(){
+		initTriple();
+		var td = calcTD(b,c);
+		for ( var i = 0; i < td; i++){
+			b++;
+			c--;
+			var triple = {a:a,b:b,c:c};
+			triples.push(triple);
+			//console.log(triple);
+		}
+	}
+
+	//see if a^2 + b^2 = c^2
+	function isPythag(){
+		for (var i = 0; i < triples.length; i++){
+			var a = triples[i].a;
+			var b = triples[i].b;
+			var c = triples[i].c;
+			var a2 = Math.pow(a,2);
+			var b2 = Math.pow(b,2);
+			var c2 = Math.pow(c,2);
+			if (a2 + b2 == c2){
+				var ans = a +", " + b + ", " + c + ": " + a*b*c;
+				return ans;
+			}
+		}
+	}
+
+	</script>
+	
+	</head>
+	<body>
+	</body>
+</html>

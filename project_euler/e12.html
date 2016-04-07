@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>divisors of triangle numbers</title>
+	
+	<script>
+	/* Find first triangle number with 500 divisors
+	*all numbers will have be divisible by either prime numbers or products of the set of prime numbers it is divisible by: i.e. 28- 1,2,4,7,14,28- ( 4 is 2*2 and 14 is 7*2)
+	*/
+	/*
+	generate sieve of prime numbers large enough to cover all cases (up to 2 million to start?)
+	generate triangle numbers (maybe 100 at a time)
+
+	//divisor algorithm possibrus!!
+	mathy
+	check is multiple of prime numbers less then half of triangle.
+
+	//less mathy maybe faster
+	generate 500 triangle numbers
+	perform binary search checking numbers of divisors. find divisors using brute force 
+	(primes method is iffy because if its even, you have to check all multiples of two, which only cuts down 50% of numbers! which by the time you generate primes doesn't cut down on run time very much. might as well check all possibly numbers less then number)
+	*/
+		
+	//check if getDivisors is working- test is success
+
+
+
+
+
+
+
+
+
+
+ 
+var tIndex = 0; //tIndex is the triangle we have calculated up to (28 has a tIndex of 7))
+var tNums = [];
+var primes = [2];
+
+var t = find500();
+document.write(t);
+
+//generates the next 500 triangle numbers.
+function getTriangleNumbers(){ 
+	//refills the array instead of extending it...
+	
+	for (var i = 0; i < 500; i++){
+		//getTnum(n)
+		tNums[i] = getTNum(tIndex);
+		tIndex++;
+	}
+}
+
+//print out triangle numbers and their number of divisors
+function find500(){
+	getTriangleNumbers();
+
+	for (var i = 0; i < tNums.length; i++){
+		var d = getNumberOfDivisors(tNums[i]);
+		console.log(tNums[i] + ': ' + d);
+		if (d > 500){
+			return tNums[i];
+		}
+		if (i = tNums.length-1){
+			find500();
+		}
+	}
+}
+
+//calculate t number
+function getTNum(n){
+	var tnum = 0;
+	for (var i = 0; i <= n; i++){
+		tnum += i;
+	}
+	return tnum;
+}
+
+
+
+//get primes up to n
+/*
+get divisors by dividing triangle number (n) by all primes <= n/2
+fill primes[] with first 500 primes. if the largest primes is <= n/2, generate the next 500
+
+
+*/
+
+
+
+
+
+//gets the next 500 primes
+function generatePrimes()
+{
+	var maybePrime = primes[primes.length] + 2;
+	var primesWanted = primes.length + 500;
+	while(primes.length < primesWanted){
+		for (var j = 0; j < primes.length; j++){
+			if (maybePrime%primes[j]==0){
+				break;
+			}
+			if (j == primes.length - 1){
+					primes.push(maybePrime);
+			}
+		}
+	}
+}
+
+
+	
+	
+	
+	
+//get divisors. Use the Seive!!!!
+function getNumberOfDivisors(n){
+	var divisors = [1, n]; //including 1 and the number itself at the beginning of every loop. That way we only have to test primes 2...n/2
+	var index = 0;
+
+	while(primes[primes.length] < n/2){
+		generatePrimes();
+	}
+	while(primes[index] < n/2){	
+		if(n%primes[index] == 0){
+			var x = primes[index];
+			var y = n%x;
+			if (divisors.indexOf(x) != -1){
+				divisors.push(x);
+			}
+			if (divisors.indexOf(y) != -1){
+				divisors.push(y);
+			}
+		}
+		return divisors.length;
+	}
+}
+
+
+	</script>
+	
+	</head>
+	<body>
+	</body>
+</html>
+
+	

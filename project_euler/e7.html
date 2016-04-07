@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>What is the 10 001st prime number?</title>
+	
+	<script>
+	
+	/* 
+	* Use sieve from e3
+	*/
+var n = 10001;
+var primes = [];
+if (n >= 2){
+	primes.push(2);
+}
+var i = 3;
+while (primes.length < n){
+	for (var j = 0; j < primes.length; j++){
+		if (i%primes[j]==0){
+			break;
+		}
+		if (j == primes.length - 1){
+			primes.push(i);
+		}
+	}
+	i+=2;
+}
+document.write(primes[10000]);
+
+	</script>
+	
+	</head>
+	<body>
+	</body>
+</html>

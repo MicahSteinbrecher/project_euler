@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+
+	</head>
+	<body>
+	<script>
+
+	/*
+	* 
+	*
+	*/
+
+	var num = String(Math.pow(2, 1000));
+	var sum = 0;
+	for (var i = 0; i < num.length; i++){
+		var x = num.charAt(i);
+		if (isNaN(x)){
+			x = parseInt(x);
+		}
+		sum += x;
+	}
+	alert(sum);
+
+	</script>
+	</body>
+</html>
+
+	

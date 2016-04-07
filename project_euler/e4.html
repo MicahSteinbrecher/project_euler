@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>largest palindrome from product of 2 3 dig numbers</title>
+	
+	<script>
+	
+	/* 
+	* check if palindrome. Only works for strings??
+	*/
+	function isPalindrome(palin){
+		var lineOfSymmetry = Math.floor(palin.length)/2;
+		var i = 0;
+		half1 = '';
+		half2 = '';
+		while (i < lineOfSymmetry){
+			half1 += palin[i];
+			half2 += palin[palin.length - 1 - i];
+			i++;
+		}
+
+		if (half1 == half2){
+			return true;
+		}
+		else {
+			return false
+		}
+	}
+
+/*
+Check for the largest palindrome produced by multiplying 2 3dig numbers.
+Naive. make an array of all number 100*100...999*999, and check for the largest palindrome.
+
+create number bank:
+for every i 100->999
+multiply by j 100->999
+*/
+var numBank = [];
+var i = 100;
+var j = 100;
+while (i <= 999){
+	//calculate product
+	while (j <= 999){
+		var product = i * j;
+		numBank.push(product);
+		j++;
+	}
+	j = 100;
+	i++;
+}
+var largestPalindrome = 0;
+var length = numBank.length
+for (var i = 0; i < length; i++){
+	if (isPalindrome(numBank[i].toString())){
+		if (numBank[i] > largestPalindrome){
+			largestPalindrome = numBank[i];
+		}
+	}
+}
+document.write(largestPalindrome);
+	</script>
+	
+	</head>
+	<body>
+	</body>
+</html>

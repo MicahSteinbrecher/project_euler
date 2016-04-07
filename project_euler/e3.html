@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>plargest prime of 600851475143</title>
+	
+	<script>
+	/* have to cut down performance time. when checking factors, only check other prime factors!!!!! -done baby
+	*/
+
+	//find primes up to root of number
+	var n = Math.sqrt(600851475143);
+	var big = 600851475143;
+	var primes = [];
+	if (n >= 2){
+		primes.push(2);
+	}
+
+		for (var i = 3; i <= n; i+=2){
+			//check if any i%x == 0
+			//x is any value in the list of already computed primes
+			for (var j = 0; j < primes.length; j++){
+				if (i%primes[j]==0){
+					break;
+				}
+				if (j == primes.length - 1)
+					primes.push(i);
+			}
+		}
+
+		//document.write(primes);
+
+	//find largest prime that is a factor of 600851475143
+	var largestPrimeFactor = 0;
+	for (var i = 0; i < primes.length; i++){
+		if (big%primes[i] == 0) {
+			largestPrimeFactor = primes[i];
+		}
+	}
+	document.write(largestPrimeFactor);
+		
+
+	</script>
+	
+	</head>
+	<body>
+	</body>
+</html>
+
+	
